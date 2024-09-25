@@ -165,6 +165,32 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
+
+                    // 7-day forecast section
+                    Padding(
+                      padding: EdgeInsets.only(top: size.height * 0.01),
+                      child: Text(
+                        "7-day forecast",
+                        style: GoogleFonts.questrial(
+                          color: isDarkMode ? Colors.white : Colors.black,
+                          fontSize: size.height * 0.035,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: size.height * 0.02,
+                          horizontal: size.width * 0.05),
+                      child: Container(
+                        child: Column(
+                          children: [
+                            dayForecastCard("Today", "2°C", "-5°C", FontAwesomeIcons.cloud),
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -175,6 +201,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // Function to create individual forecast card
   Widget forecastCard(String time, String temp, IconData icon, String rainProb) {
     Size size = MediaQuery.of(context).size;
     var brightness = MediaQuery.of(context).platformBrightness;
@@ -215,6 +242,46 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ],
+    );
+  }
+
+  // Function to create individual day forecast card
+  Widget dayForecastCard(String day, String highTemp, String lowTemp, IconData icon) {
+    Size size = MediaQuery.of(context).size;
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            day,
+            style: GoogleFonts.questrial(
+              color: isDarkMode ? Colors.white : Colors.blueAccent,
+              fontSize: size.height * 0.025,
+            ),
+          ),
+          Row(
+            children: [
+              FaIcon(
+                icon,
+                color: isDarkMode ? Colors.white : Colors.blueAccent,
+                size: size.height * 0.03,
+              ),
+              SizedBox(width: 10),
+              Text(
+                "$highTemp/$lowTemp",
+                style: GoogleFonts.questrial(
+                  color: isDarkMode ? Colors.white : Colors.blueAccent,
+                  fontSize: size.height * 0.025,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
